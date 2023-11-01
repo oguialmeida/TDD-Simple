@@ -108,7 +108,7 @@ npm install gulp gulp-jasmine --save-dev
     
 - Resultado dos teste
     
-![Untitled](Untitled.png)
+![Untitled](img/Untitled.png)
     
 - Um erro foi obtido e significa que Nesse caso, o erro é relacionado ao uso do Jasmine e à função onComplete, que está obsoleta. Para resolver essa mensagem de depreciação, você pode seguir as instruções fornecidas: Em vez de chamar onComplete, configure a propriedade exitOnCompletion da instância do Jasmine como false e use a promessa retornada do método execute.
 
@@ -145,7 +145,7 @@ process.on('uncaughtException', function (e) {
 
 - Resultado no terminal
     
-![Untitled](Untitled1.png)
+![Untitled](img/Untitled1.png)
     
 
 **Refatorando para melhorar**
@@ -171,7 +171,7 @@ module.exports = averageCalculator;
     gulp testar
     ```
     
-![Untitled](Untitled2.png)
+![Untitled](img/Untitled2.png)
     
 
 [https://github.com/oguialmeida/TDD-Simple](https://github.com/oguialmeida/TDD-Simple)
