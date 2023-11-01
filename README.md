@@ -172,6 +172,3 @@ module.exports = averageCalculator;
     ```
     
 ![Untitled](img/Untitled2.png)
-    
-
-[https://github.com/oguialmeida/TDD-Simple](https://github.com/oguialmeida/TDD-Simple)
