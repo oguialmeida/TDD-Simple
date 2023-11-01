@@ -108,7 +108,7 @@ npm install gulp gulp-jasmine --save-dev
     
 - Resultado dos teste
     
-    ![Untitled](ARP%20Ciclo%20-%203%20c92ba184d09346d0aaf48ea3cbd0e1d3/Untitled.png)
+    ![Untitled](Untitled.png)
     
 - Um erro foi obtido e significa que Nesse caso, o erro é relacionado ao uso do Jasmine e à função onComplete, que está obsoleta. Para resolver essa mensagem de depreciação, você pode seguir as instruções fornecidas: Em vez de chamar onComplete, configure a propriedade exitOnCompletion da instância do Jasmine como false e use a promessa retornada do método execute.
 
@@ -145,7 +145,7 @@ process.on('uncaughtException', function (e) {
 
 - Resultado no terminal
     
-    ![Untitled](ARP%20Ciclo%20-%203%20c92ba184d09346d0aaf48ea3cbd0e1d3/Untitled%201.png)
+    ![Untitled](Untitled 1.png)
     
 
 **Refatorando para melhorar**
@@ -171,7 +171,7 @@ module.exports = averageCalculator;
     gulp testar
     ```
     
-    ![Untitled](ARP%20Ciclo%20-%203%20c92ba184d09346d0aaf48ea3cbd0e1d3/Untitled%202.png)
+    ![Untitled](Untitled 2.png)
     
 
 [https://github.com/oguialmeida/TDD-Simple](https://github.com/oguialmeida/TDD-Simple)
