@@ -1,14 +1,4 @@
-# ARP Ciclo - 3
-
-```markdown
-Engenharia de Software - Universidade Evangélica de Goiás
-Verificação e Validação - Ciclo 3
-Guilherme Gomes de Almeida - 2020890
-```
-
-### **Atividade: Desenvolver um Algoritmo para Calcular a Média de Três Notas Utilizando TDD**
-
-   **Preparando ambiente (Trabalhando com JS)**
+**Preparando ambiente (Trabalhando com JS)**
 
 - Pré-requisitos: NodeJS, npm
 - O Gulp é uma ferramenta de automação de construção de projetos, assim como Make (C), Ant e Maven (Java) e Rake (Ruby). O Gulp possibilita escrever scripts para executar tarefas comuns no mundo JavaScript, como ofuscar e minificar arquivos, converter de SASS/LESS para CSS e converter de CoffeeScript para JavaScript. No contexto do TDD Contínuo, o Gulp é útil para observar o sistema de arquivos e disparar a execução dos testes quando ocorrerem mudanças em arquivos existentes.
