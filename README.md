@@ -1,120 +1,122 @@
-**Preparando ambiente (Trabalhando com JS)**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
 
-- Pré-requisitos: NodeJS, npm
-- O Gulp é uma ferramenta de automação de construção de projetos, assim como Make (C), Ant e Maven (Java) e Rake (Ruby). O Gulp possibilita escrever scripts para executar tarefas comuns no mundo JavaScript, como ofuscar e minificar arquivos, converter de SASS/LESS para CSS e converter de CoffeeScript para JavaScript. No contexto do TDD Contínuo, o Gulp é útil para observar o sistema de arquivos e disparar a execução dos testes quando ocorrerem mudanças em arquivos existentes.
+<h1>Setting Up the Environment (Working with JS)</h1>
 
-```markdown
-npm -v
+<ul>
+  <li><strong>Prerequisites:</strong> NodeJS, npm</li>
+  <li>Gulp is a project build automation tool, similar to Make (C), Ant and Maven (Java), and Rake (Ruby). Gulp allows you to write scripts to perform common tasks in the JavaScript world, such as minifying and uglifying files, converting SASS/LESS to CSS, and converting CoffeeScript to JavaScript. In the context of Continuous TDD, Gulp is useful for watching the file system and triggering test runs whenever existing files change.</li>
+</ul>
+
+<pre><code>npm -v
 npm install gulp -g
 npm init
 npm install gulp gulp-jasmine --save-dev
-```
+</code></pre>
 
-**Escreva os Testes (Fase Red):**
+<h2>Write the Tests (Red Phase):</h2>
 
-- Configure o arquivo jasmine.json para que ele aponte para os arquivos de teste e os arquivos de código que você deseja testar. Um exemplo de configuração pode ser:Escrevendo testes.
-    
-    ```json
-    {
-      "spec_dir": "spec",
-      "spec_files": [
-        "**/*[sS]pec.js"
-      ],
-      "helpers": [
-        "helpers/**/*.js"
-      ],
-      "stopSpecOnExpectationFailure": false,
-      "random": true
-    }
-    ```
-    
-- Crie um diretório chamado spec e, dentro dele, crie um arquivo de teste, por exemplo, averageCalculatorSpec.js. Neste arquivo, você escreverá os testes:
-    
-    ```jsx
-    const averageCalculator = require('../index');
-    
-    describe('averageCalculator', () => {
-      it('should calculate the average of three valid grades', () => {
-        expect(averageCalculator([90, 85, 88])).toBe(87.67);
-      });
-    
-      it('should handle all grades being zero', () => {
-        expect(averageCalculator([0, 0, 0])).toBe(0);
-      });
-    
-      it('should handle grades with decimal values', () => {
-        expect(averageCalculator([95.5, 87.25, 91.75])).toBe(91.5);
-      });
-    
-      // Add more test cases as needed
-    });
-    ```
-    
-- Agora, implemente a função averageCalculator em um arquivo chamado index.js:
-    
-    ```jsx
-    function averageCalculator(grades) {
-      if (grades.length !== 3) {
-        throw new Error('You must provide exactly three grades.');
-      }
-      const sum = grades.reduce((acc, grade) => acc + grade, 0);
-      const average = sum / 3;
-      return Number(average.toFixed(2)); // Round to two decimal places
-    }
-    
-    module.exports = averageCalculator;
-    ```
-    
-- Agora você pode usar o Gulp para executar os testes. Você pode manter seu arquivo gulpfile.js:
-    
-    ```jsx
-    const gulp = require('gulp');
-    const jasmine = require('gulp-jasmine');
-    
-    const caminhoFonte = 'index.js';
-    
-    gulp.task('testar', function () {
-        return gulp.src(caminhoFonte)
-            .pipe(jasmine());
-    });
-    
-    gulp.task('tdd-continuo', gulp.series('testar', function () {
-        gulp.watch(caminhoFonte, gulp.series('testar'));
-    }));
-    
-    process.on('uncaughtException', function (e) {
-        console.error(e.stack);
-    });
-    ```
-    
+<p>Configure the <code>jasmine.json</code> file to point to the test files and the code files you want to test. An example configuration might look like this:</p>
 
-**Execute os testes**
+<pre><code>{
+  "spec_dir": "spec",
+  "spec_files": [
+    "**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "helpers/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": true
+}
+</code></pre>
 
-- Executar o comando de teste
-    
-    ```bash
-    gulp testar
-    ```
-    
-- Resultado dos teste
-    
-![Untitled](img/Untitled.png)
-    
-- Um erro foi obtido e significa que Nesse caso, o erro é relacionado ao uso do Jasmine e à função onComplete, que está obsoleta. Para resolver essa mensagem de depreciação, você pode seguir as instruções fornecidas: Em vez de chamar onComplete, configure a propriedade exitOnCompletion da instância do Jasmine como false e use a promessa retornada do método execute.
+<p>Create a directory named <code>spec</code> and inside it create a test file, for example, <code>averageCalculatorSpec.js</code>. In this file, write your tests:</p>
 
-**Corrigindo e implementando o algoritmo**
+<pre><code>const averageCalculator = require('../index');
 
-```jsx
-const gulp = require('gulp');
+describe('averageCalculator', () => {
+  it('should calculate the average of three valid grades', () => {
+    expect(averageCalculator([90, 85, 88])).toBe(87.67);
+  });
+
+  it('should handle all grades being zero', () => {
+    expect(averageCalculator([0, 0, 0])).toBe(0);
+  });
+
+  it('should handle grades with decimal values', () => {
+    expect(averageCalculator([95.5, 87.25, 91.75])).toBe(91.5);
+  });
+
+  // Add more test cases as needed
+});
+</code></pre>
+
+<p>Now implement the <code>averageCalculator</code> function in a file named <code>index.js</code>:</p>
+
+<pre><code>function averageCalculator(grades) {
+  if (grades.length !== 3) {
+    throw new Error('You must provide exactly three grades.');
+  }
+  const sum = grades.reduce((acc, grade) => acc + grade, 0);
+  const average = sum / 3;
+  return Number(average.toFixed(2)); // Round to two decimal places
+}
+
+module.exports = averageCalculator;
+</code></pre>
+
+<p>You can now use Gulp to run the tests. Keep your <code>gulpfile.js</code> like this:</p>
+
+<pre><code>const gulp = require('gulp');
+const jasmine = require('gulp-jasmine');
+
+const sourcePath = 'index.js';
+
+gulp.task('test', function () {
+    return gulp.src(sourcePath)
+        .pipe(jasmine());
+});
+
+gulp.task('continuous-tdd', gulp.series('test', function () {
+    gulp.watch(sourcePath, gulp.series('test'));
+}));
+
+process.on('uncaughtException', function (e) {
+    console.error(e.stack);
+});
+</code></pre>
+
+<h2>Run the Tests</h2>
+
+<p>Run the test command:</p>
+
+<pre><code>gulp test
+</code></pre>
+
+<p>Test result:</p>
+
+<img src="img/Untitled.png" alt="Test result screenshot" />
+
+<p>An error was encountered related to Jasmine's deprecated <code>onComplete</code> function. To fix this deprecation warning, configure Jasmine's <code>exitOnCompletion</code> property as <code>false</code> and use the promise returned by the <code>execute</code> method instead of using <code>onComplete</code>.</p>
+
+<h2>Fixing and Implementing the Algorithm</h2>
+
+<pre><code>const gulp = require('gulp');
 const jasmine = require('gulp-jasmine');
 const Jasmine = require('jasmine');
 
-const caminhoFonte = 'index.js';
+const sourcePath = 'index.js';
 
-gulp.task('testar', function (done) {
+gulp.task('test', function (done) {
     const jasmine = new Jasmine();
-    jasmine.loadConfigFile('jasmine.json'); // Carrega a configuração do Jasmine, se houver
-    jasmine.exitOnCompletion = false; // Desativa a saída no final da execução
+    jasmine.loadConfigFile('jasmine.json'); // Load Jasmine config file if available
+    jasmine.exitOnCompletion = false; // Disable exit on completion
     jasmine.execute().then((success) => {
         if (success) {
             done();
@@ -124,26 +126,24 @@ gulp.task('testar', function (done) {
     });
 });
 
-gulp.task('tdd-continuo', gulp.series('testar', function () {
-    gulp.watch(caminhoFonte, gulp.series('testar'));
+gulp.task('continuous-tdd', gulp.series('test', function () {
+    gulp.watch(sourcePath, gulp.series('test'));
 }));
 
 process.on('uncaughtException', function (e) {
     console.error(e.stack);
 });
-```
+</code></pre>
 
-- Resultado no terminal
-    
-![Untitled](img/Untitled1.png)
-    
+<p>Terminal output:</p>
 
-**Refatorando para melhorar**
+<img src="img/Untitled1.png" alt="Terminal output screenshot" />
 
-- Foi adicionando a função a sintaxe de arrow function para modernizar a sua sintaxe
+<h2>Refactoring for Improvement</h2>
 
-```jsx
-const averageCalculator = (grades) => {
+<p>The function was refactored to use arrow function syntax for modernity:</p>
+
+<pre><code>const averageCalculator = (grades) => {
     if (grades.length !== 3) {
         throw new Error('You must provide exactly three grades.')
     }
@@ -153,12 +153,14 @@ const averageCalculator = (grades) => {
 }
 
 module.exports = averageCalculator;
-```
+</code></pre>
 
-- Resultado final
-    
-    ```bash
-    gulp testar
-    ```
-    
-![Untitled](img/Untitled2.png)
+<p>Final result:</p>
+
+<pre><code>gulp test
+</code></pre>
+
+<img src="img/Untitled2.png" alt="Final test result screenshot" />
+
+</body>
+</html>
